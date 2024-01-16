@@ -1,0 +1,41 @@
+[dataset_path]
+
+data = "data"
+plant_seedlings = "data/v2-plant-seedlings-dataset"
+new_plant_diseases = "data/new-plant-diseases-dataset"
+plantvillage = "data/plantvillage-dataset"
+plantvillage_color = "data/plantvillage-dataset/color"
+plantvillage_gray = "data/plantvillage-dataset/grayscale"
+plantvillage_segmented = "data/plantvillage-dataset/segmented"
+
+[general_csv_path]
+
+plant_seedlings = "data/csv/general/v2-plant-seedlings-dataset.csv"
+new_plant_diseases = "data/csv/general/new-plant-diseases-dataset.csv"
+plantvillage_color = "data/csv/general/plantvillage-dataset-color.csv"
+plantvillage_gray = "data/csv/general/plantvillage-dataset-grayscale.csv"
+plantvillage_segmented = "data/csv/general/plantvillage-dataset-segmented.csv"
+
+[hist_csv_path]
+
+plant_seedlings = "data/csv/hist/v2-plant-seedlings-dataset.csv"
+new_plant_diseases = "data/csv/hist/new-plant-diseases-dataset.csv"
+plantvillage_color = "data/csv/hist/plantvillage-dataset-color.csv"
+plantvillage_gray = "data/csv/hist/plantvillage-dataset-grayscale.csv"
+plantvillage_segmented = "data/csv/hist/plantvillage-dataset-segmented.csv"
+
+[clean]
+
+low_quality = true
+
+[split]
+
+plant_seedlings = false
+new_plant_diseases = false
+plantvillage_color = false
+plantvillage_gray = false
+plantvillage_segmented = false
+
+random_state = 42
+train_size = 0.8
+test_size = 1  # of the remaining 20% of the data

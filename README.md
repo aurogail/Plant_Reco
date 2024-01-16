@@ -1,60 +1,83 @@
-# ProjectTemplate
+# Reconnaissance de plantes
 
-## Explanations and Instructions
+## Présentation du contexte
 
-This repository contains the files needed to initialize a project for your [DataScientest](https://datascientest.com/) training.
+Ce répertoire GitHub contient la contribution de code produit par **Jacques Colin** pour le projet "fil rouge" de la formation [Datascientest](https://datascientest.com/formation-data-scientist). Ce projet permet la reconnaissance de plantes et la détection de maladies d'une image de plante prise par un appareil photo.
+Pour cela, trois datasets ont été utilisés : [New Plant Diseases](https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset), [Plantvillage](https://www.kaggle.com/datasets/abdallahalidev/plantvillage-dataset) et [Plant Seedlings](https://www.kaggle.com/datasets/vbookshelf/v2-plant-seedlings-dataset). Ces datasets proviennent de [Kaggle](https://www.kaggle.com/).
 
-It contains mainly the present README.md file and an application template [Streamlit](https://streamlit.io/).
+* Le dataset **Plant seedlings** contient 5539 images de jeunes pousses de plantes appartenant à 12 classes.
+* Le dataset **Plantvillage** contient 54305 images de plances appartenant à 38 classes.
+* Le dataset **New Plant Diseases** contient 87900 images et est une augmentation des images présentes dans **Plantvillage**.
 
-**README**
+Sujet: `Reconnaissance de plantes.pdf`
 
-The README.md file is a central element of any git repository. It allows you to present your project, its objectives, and to explain how to install and launch the project, or even how to contribute to it.
+## Mise en place de l'environnement
 
-You will have to modify different sections of this README.md to include the necessary informations.
+1. Installer les dépendances requises de requirements.txt dans un environnement virtuel Python en effectant les commandes suivantes:
 
-- Complete the sections (`## Presentation and Installation` `## Streamlit App`) following the instructions in these sections.
-- Delete this section (`## Explanations and Instructions`)
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+    ```
 
-**Streamlit Application**
+2. Configurer sa clé API Kaggle (Générer sa clé API Kaggle et stocker dans .kaggle/kaggle.json)
 
-A [Streamlit] application template (https://streamlit.io/) is available in the [streamlit_app](streamlit_app) folder. You can use this template to start with your project.
+3. Se placer dans le projet et exécuter la commande suivante
 
-## Presentation and Installation
+    ```bash
+    python3 fetch_data.py && python3 clean_data.py && python3 transform_data.py && python3 generate_df.py
+    ```
 
-Complete this section with a brief description of your project, the context (including a link to the DataScientest course), and the objectives.
+## Architecture du projet
 
-You can also add a brief presentation of the team members with links to your respective networks (GitHub and/or LinkedIn for example).
+### Data
 
-**Example:**
+Les données sont stockés dans le dossier `data`. Les trois datasets sont téléchargés via le fichier `fetch_data.py`, les datasets ne sont pas divisés en dossier train/test/valid.
 
-This repository contains the code for our project **PROJECT_NAME**, developed during our [Data Scientist training](https://datascientest.com/en/data-scientist-course) at [DataScientest](https://datascientest.com/).
+Le dossier `csv` est généré grâce au fichier `generate_df.py`. Il contient des informations générales sur les datasets mais aussi sur les histogrammes d'intensité de chaque dataset.
 
-The goal of this project is to **...**
+Le dossier `model` est généré à partir de `train_cnn_img.py` et de `train_ml_hist.py`. Ces fichiers entrainent des modèles selon une configuration donnée.
 
-This project was developed by the following team :
+* data
+  * csv
+    * general
+    * hist
+  * model
+    * hist
+    * pixel
+  * new-plant-diseases-dataset
+  * plantvillage-dataset
+  * v2-plant-seedlings-dataset
 
-- John Doe ([GitHub](https://github.com/) / [LinkedIn](http://linkedin.com/))
-- Martin Dupont ([GitHub](https://github.com/) / [LinkedIn](http://linkedin.com/))
+### Scripts
 
-You can browse and run the [notebooks](./notebooks). 
+Les étapes de récupération et de traitement des données sont automatisés afin d'avoir une reproductibilité des datasets. La génération des informations des datasets sert à centraliser les données des datasets et à éviter de recalculer les histogrammes d'intensité.
 
-You will need to install the dependencies (in a dedicated environment) :
+L'entrainement automatisé des modèles permet d'entrainer plusieurs modèles notamment la nuit sans avoir besoin d'intervenir pour exécuter chaque entrainement et permet la reproductibilité de l'entrainement des modèles.
 
-```
-pip install -r requirements.txt
-```
+#### Génération des ensembles de données
 
-## Streamlit App
+* fetch_data.py
+* clean_data.py
+* transform_data.py
+* generate_df.py
 
-**Add explanations on how to use the app.**
+#### Génération des modèles
 
-To run the app (be careful with the paths of the files in the app):
+* train_cnn_img.py
+* train_ml_hist.py
 
-```shell
-conda create --name my-awesome-streamlit python=3.9
-conda activate my-awesome-streamlit
-pip install -r requirements.txt
-streamlit run app.py
-```
+### Visualisation des performances des modèles
 
-The app should then be available at [localhost:8501](http://localhost:8501).
+Après avoir entrainé des modèles, le fichier `results.ipynb` permet de mettre en évidence et de comparer leurs performances. De plus, il est possible d'observer la Grad-CAM des modèles.
+
+## Modèles utilisés
+
+### Histogramme d'intensité
+
+Les modèles de machine learning classiques ont été étudiés. En utilisant la **PCA** pour réduire le nombre de variables par conséquent le temps de calcul, ainsi que **GridSearchCV** afin de paramètrer au mieux les paramètres des modèles et en utilisant un **StratifiedKFold** pour limiter le biais du choix des ensembles d'entrainement et de test, le modèle SVM a été le plus performant et a pu atteindre 93% de précision.
+
+### Images
+
+Les modèles de Deep Learning notamment le CNN permettent d'atteindre 93% de précision et l'utilisation du transfert learning permet d'atteindre jusqu'à 98.7% de précision sur le dataset New Plant Diseases.
