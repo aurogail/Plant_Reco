@@ -82,7 +82,7 @@ Les modèles de machine learning classiques ont été étudiés. En utilisant la
 
 Les modèles de Deep Learning notamment le CNN permettent d'atteindre 93% de précision et l'utilisation du transfert learning permet d'atteindre jusqu'à 98.7% de précision sur le dataset New Plant Diseases.
 
-## Kaggle notebooks
+## Notebooks Kaggle
 ### Histogrammes
 Creation des histogrammes qui serviront à la classification par des arbres de décisions avec lightGBM et par un réseau de neurones dense avec TensorFlow.
 Les images segmentées du jeu de données plantvillage sont utilisées.
