@@ -2,7 +2,7 @@
 
 ## Présentation du contexte
 
-Ce répertoire GitHub contient la contribution de code produit par **Jacques Colin** pour le projet "fil rouge" de la formation [Datascientest](https://datascientest.com/formation-data-scientist). Ce projet permet la reconnaissance de plantes et la détection de maladies d'une image de plante prise par un appareil photo.
+Ce répertoire GitHub contient le code produit par **Jacques Colin**, **Jonathant Lemaitre** et **Aurore Gailhard** pour le projet "fil rouge" de la formation [Datascientest](https://datascientest.com/formation-data-scientist). Ce projet permet la reconnaissance de plantes et la détection de maladies d'une image de plante prise par un appareil photo.
 Pour cela, trois datasets ont été utilisés : [New Plant Diseases](https://www.kaggle.com/datasets/vipoooool/new-plant-diseases-dataset), [Plantvillage](https://www.kaggle.com/datasets/abdallahalidev/plantvillage-dataset) et [Plant Seedlings](https://www.kaggle.com/datasets/vbookshelf/v2-plant-seedlings-dataset). Ces datasets proviennent de [Kaggle](https://www.kaggle.com/).
 
 * Le dataset **Plant seedlings** contient 5539 images de jeunes pousses de plantes appartenant à 12 classes.
@@ -45,7 +45,7 @@ Le dossier `model` est généré à partir de `train_cnn_img.py` et de `train_ml
     * hist
   * model
     * hist
-    * pixel
+    * img
   * new-plant-diseases-dataset
   * plantvillage-dataset
   * v2-plant-seedlings-dataset
